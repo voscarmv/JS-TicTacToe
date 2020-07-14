@@ -1,6 +1,16 @@
 const Gameboard = (() => {
-  const board = () => [['', '', ''], ['', '', ''], ['', '', '']];
-  return { board }
+  const board = [
+    [' ', ' ', ' '],
+    [' ', ' ', ' '],
+    [' ', ' ', ' ']
+  ];
+  const move = (symbol, row, col) => {
+    board[row][col] = symbol;
+  };
+  const print = () => {
+    console.log(board);
+  };
+  return { move, print }
 })();
 
 const Player = (name, symbol) => {
