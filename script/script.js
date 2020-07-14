@@ -1,3 +1,8 @@
+const Gameboard = (() => {
+  const board = () => [['', '', ''], ['', '', ''], ['', '', '']];
+  return { board }
+})();
+
 const Player = (name, symbol) => {
   let score = 0;
   const getName = () => name;
@@ -7,7 +12,7 @@ const Player = (name, symbol) => {
     score += 1;
     return score;
   };
-  return {getName, getSymbol, getScore, win}
+  return { getName, getSymbol, getScore, win }
 };
 
 const player1 = Player("Oscar", "O");
