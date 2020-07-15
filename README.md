@@ -17,11 +17,11 @@
 - Open the index.html file your browser.
 
 ## Demo
-[Link demo](https://rawcdn.githack.com/sergiomauz/JS-Microverse-Library/0011e1881797cabc97021f33c4dd4d7886527ab7/index.html)
+[Link demo](https://rawcdn.githack.com/voscarmv/JS-TicTacToe/42edcf623f3409b96dce7ec26ec6f156cc5763d0/index.html)
 
 ## Authors
 
-**Oscar Mier**
+👤 **Oscar Mier**
 - Github: [@voscarmv](https://github.com/voscarmv)
 - Twitter: [@voscarmv](https://twitter.com/voscarmv)
 - Linkedin: [Oscar Mier](https://www.linkedin.com/in/oscar-mier-072984196/) 
