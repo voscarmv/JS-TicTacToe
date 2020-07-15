@@ -51,6 +51,7 @@ const Player = (name, symbol) => {
 const GameControl = ((board) => {
   let p1 = null;
   let p2 = null;
+  let players_turn = p1;
   let createPlayers = (p1_name, p2_name) => {
     p1 = Player(p1_name, 'X');
     p2 = Player(p2_name, 'O');
@@ -58,40 +59,55 @@ const GameControl = ((board) => {
   const initForm = () => {
     let signUp = '';
     signUp = `
-    <div class="form-group">
-    <label for="player1">Player 1</label>
-    <input type="text" class="form-control" id="player1" placeholder="Player 1" />
-      <div id="invalid-p1" class="alert alert-danger d-none" role="alert">
-        Player 1 name not valid.
+      <div class="form-group">
+      <label for="player1">Player 1</label>
+      <input type="text" class="form-control" id="player1" placeholder="Player 1" />
+        <div id="invalid-p1" class="alert alert-danger d-none" role="alert">
+          Player 1 name not valid.
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-    <label for="player2">Player 2</label>
-    <input type="text" class="form-control" id="player2" placeholder="Player 2" />
-      <div id="invalid-p2" class="alert alert-danger d-none" role="alert">
-        Player 2 name not valid.
+      <div class="form-group">
+      <label for="player2">Player 2</label>
+      <input type="text" class="form-control" id="player2" placeholder="Player 2" />
+        <div id="invalid-p2" class="alert alert-danger d-none" role="alert">
+          Player 2 name not valid.
+        </div>
       </div>
-    </div>
-    <button id="start_game" type="submit" class="btn btn-primary">Start!</button>
+      <button id="start_game" type="submit" class="btn btn-primary">Start!</button>
     `;
     document.getElementById('divGameControls').innerHTML = signUp;
     document.getElementById('start_game').addEventListener('click', () => {
       p1_name = document.getElementById('player1').value;
       p2_name = document.getElementById('player2').value;
       createPlayers(p1_name, p2_name);
+      players_turn = p1;
+      addEvents();
+      altScoreBoard();
     });
   };
 
+  const altScoreBoard = () => {
+    // if (document.getElementById('divBoardCard').className.includes('d-none')) {
+    document.getElementById('divBoardCard').className = 'card';
+    //   document.getElementById('divGameControls').className = 'card d-none';
+    // }
+    // else {
+    //   document.getElementById('divBoardCard').className = 'card d-none';
+    //   document.getElementById('divGameControls').className = 'card';
+    // }
+    document.getElementById('divGameControls').innerHTML = `${p1.getName()} V.S. ${p2.getName()}`;
+  }
+
   const addEvents = () => {
-    for(let i = 0; i < 9; i++){
+    for (let i = 0; i < 9; i++) {
       document.getElementById(`cell_${i}`).addEventListener('click', () => {
-        
+        document.getElementById(`cell_${i}`).innerHTML = players_turn.getSymbol();
+        players_turn === p1 ? players_turn = p2 : players_turn = p1;
       });
     }
   };
-  
+
   const gameLoop = () => {
-    let players_turn = p1;
 
   };
   return { initForm }
