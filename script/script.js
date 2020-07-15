@@ -8,7 +8,29 @@ const Gameboard = (() => {
     board[row][col] = symbol;
   };
   const print = () => {
-    console.log(board);
+    let divGameBoard = `    
+      <table>
+        <tbody>
+          <tr>
+            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[0][0]}</span></td>
+            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[0][1]}</span></td>
+            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[0][2]}</span></td>
+          </tr>
+          <tr>
+            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[1][0]}</span></td>
+            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[1][1]}</span></td>
+            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[1][2]}</span></td>
+          </tr>
+          <tr>
+            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[2][0]}</span></td>
+            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[2][1]}</span></td>
+            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[2][2]}</span></td>
+          </tr>          
+        </tbody>
+      </table>
+    `;
+
+    document.getElementById('divGameBoard').innerHTML = divGameBoard;
   };
   return { move, print }
 })();
@@ -27,3 +49,5 @@ const Player = (name, symbol) => {
 
 const player1 = Player("Oscar", "O");
 const player2 = Player("Sergio", "S");
+
+Gameboard.print();
