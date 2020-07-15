@@ -80,8 +80,8 @@ const GameControl = (() => {
   let current_player = p1;
   let enabled = true;
   let createPlayers = (p1_name, p2_name) => {
-    p1 = Player(p1_name, 'X');
-    p2 = Player(p2_name, 'O');
+    p1 = Player(p1_name, '☠️');
+    p2 = Player(p2_name, '🌘');
   };
   const initForm = () => {
     let signUp = '';
@@ -159,12 +159,12 @@ const GameControl = (() => {
             current_player.win();
             altScoreBoard();
             document.getElementById('divHeaderGameBoard').innerHTML = `${current_player.getName()} wins!`;
-            document.getElementById('divHeaderGameBoard').className = 'card-header bg-success';
+            document.getElementById('divHeaderGameBoard').className = 'font-weight-bold text-white card-header bg-success';
             enabled = false;
           }
           else if (board.draw()) {
             document.getElementById('divHeaderGameBoard').innerHTML = "It's a draw!";
-            document.getElementById('divHeaderGameBoard').className = 'card-header bg-warning';
+            document.getElementById('divHeaderGameBoard').className = 'font-weight-bold card-header bg-warning';
           }
           current_player === p1 ? current_player = p2 : current_player = p1;
         }
