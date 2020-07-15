@@ -12,19 +12,19 @@ const Gameboard = (() => {
       <table>
         <tbody>
           <tr>
-            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[0][0]}</span></td>
-            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[0][1]}</span></td>
-            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[0][2]}</span></td>
+            <td class='border border-dark'><div id='cell_0_0' class='cell d-flex justify-content-center align-items-center'>${board[0][0]}</div></td>
+            <td class='border border-dark'><div id='cell_0_1' class='cell d-flex justify-content-center align-items-center'>${board[0][1]}</div></td>
+            <td class='border border-dark'><div id='cell_0_2' class='cell d-flex justify-content-center align-items-center'>${board[0][2]}</div></td>
           </tr>
           <tr>
-            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[1][0]}</span></td>
-            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[1][1]}</span></td>
-            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[1][2]}</span></td>
+            <td class='border border-dark'><div id='cell_1_0' class='cell d-flex justify-content-center align-items-center'>${board[1][0]}</div></td>
+            <td class='border border-dark'><div id='cell_1_1' class='cell d-flex justify-content-center align-items-center'>${board[1][1]}</div></td>
+            <td class='border border-dark'><div id='cell_1_2' class='cell d-flex justify-content-center align-items-center'>${board[1][2]}</div></td>
           </tr>
           <tr>
-            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[2][0]}</span></td>
-            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[2][1]}</span></td>
-            <td class='border border-dark'><span class='cell d-flex justify-content-center align-items-center'>${board[2][2]}</span></td>
+            <td class='border border-dark'><div id='cell_2_0' class='cell d-flex justify-content-center align-items-center'>${board[2][0]}</div></td>
+            <td class='border border-dark'><div id='cell_2_1' class='cell d-flex justify-content-center align-items-center'>${board[2][1]}</div></td>
+            <td class='border border-dark'><div id='cell_2_2' class='cell d-flex justify-content-center align-items-center'>${board[2][2]}</div></td>
           </tr>          
         </tbody>
       </table>
