@@ -2,9 +2,18 @@ const Gameboard = (() => {
   const board = [
     ' ', ' ', ' ',
     ' ', ' ', ' ',
-    ' ', ' ', ' '
+    ' ', ' ', ' ',
   ];
-  const winning_combinations = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+  const winningCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
   const move = (symbol, cell) => {
     board[cell] = symbol;
   };
@@ -15,20 +24,18 @@ const Gameboard = (() => {
     return false;
   };
   const winner = (symbol) => {
-    for (let i = 0; i < winning_combinations.length; i++) {
-      let c = winning_combinations[i];
-      if (board[c[0]] == symbol && board[c[1]] == symbol && board[c[2]] == symbol) {
+    for (let i = 0; i < winningCombinations.length; i += 1) {
+      const c = winningCombinations[i];
+      if (board[c[0]] === symbol && board[c[1]] === symbol && board[c[2]] === symbol) {
         return true;
       }
     }
     return false;
   };
-  const draw = () => {
-    return !board.includes(' ');
-  };
+  const draw = () => !board.includes(' ');
 
   const print = () => {
-    let divGameBoard = `    
+    const divGameBoard = `    
       <table>
         <tbody>
           <tr>
@@ -54,11 +61,13 @@ const Gameboard = (() => {
     document.getElementById('divGameBoard').innerHTML = divGameBoard;
   };
   const reset = () => {
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 9; i += 1) {
       board[i] = ' ';
     }
-  }
-  return { move, print, empty, winner, reset, draw }
+  };
+  return {
+    move, print, empty, winner, reset, draw,
+  };
 })();
 
 const Player = (name, symbol) => {
@@ -70,20 +79,74 @@ const Player = (name, symbol) => {
     score += 1;
     return score;
   };
-  return { getName, getSymbol, getScore, win }
+  return {
+    getName, getSymbol, getScore, win,
+  };
 };
 
 const GameControl = (() => {
-  let board = Gameboard;
+  const board = Gameboard;
   let p1 = null;
   let p2 = null;
-  let current_player = p1;
-  let first_player = p1;
+  let currentPlayer = p1;
+  let firstPlayer = p1;
   let enabled = true;
-  let createPlayers = (p1_name, p2_name) => {
-    p1 = Player(p1_name, '☠️');
-    p2 = Player(p2_name, '🌘');
+  const createPlayers = (p1Name, p2Name) => {
+    p1 = Player(p1Name, '☠️');
+    p2 = Player(p2Name, '🌘');
   };
+
+  const altScoreBoard = () => {
+    const scoreBoard = `
+      <div class='mb-2 font-weight-bold'>${p1.getName()} V.S. ${p2.getName()}</div>
+      <div class='mb-2'>${p1.getName()}: ${p1.getScore()} victories.</div>
+      <div class='mb-3'>${p2.getName()}: ${p2.getScore()} victories.</div>
+      <button id='btnResetBoard' class='btn btn-primary'>Reset the board</button>
+    `;
+    document.getElementById('divHeaderControls').innerHTML = 'Game Score';
+    document.getElementById('divGameControls').innerHTML = scoreBoard;
+    document.getElementById('btnResetBoard').addEventListener('click', () => {
+      board.reset();
+      for (let i = 0; i < 9; i += 1) {
+        document.getElementById(`cell_${i}`).innerHTML = ' ';
+      }
+      enabled = true;
+      document.getElementById('divHeaderGameBoard').innerHTML = "Let's play!!";
+      document.getElementById('divHeaderGameBoard').className = 'card-header';
+    });
+  };
+
+  const clickEvent = (index) => {
+    if (board.empty(index) && enabled) {
+      board.move(currentPlayer.getSymbol(), index);
+      document.getElementById(`cell_${index}`).innerHTML = currentPlayer.getSymbol();
+      const wins = board.winner(currentPlayer.getSymbol());
+      if (wins) {
+        currentPlayer.win();
+        altScoreBoard();
+        document.getElementById('divHeaderGameBoard').innerHTML = `${currentPlayer.getName()} wins!`;
+        document.getElementById('divHeaderGameBoard').className = 'font-weight-bold text-white card-header bg-success';
+        enabled = false;
+        if (firstPlayer === p1) { firstPlayer = p2; } else { firstPlayer = p1; }
+        currentPlayer = firstPlayer;
+      } else if (board.draw()) {
+        document.getElementById('divHeaderGameBoard').innerHTML = "It's a draw!";
+        document.getElementById('divHeaderGameBoard').className = 'font-weight-bold card-header bg-warning';
+        if (firstPlayer === p1) { firstPlayer = p2; } else { firstPlayer = p1; }
+        currentPlayer = firstPlayer;
+      }
+      if (firstPlayer === p1) { firstPlayer = p2; } else { firstPlayer = p1; }
+    }
+  };
+
+  const addEvents = () => {
+    for (let i = 0; i < 9; i += 1) {
+      document.getElementById(`cell_${i}`).addEventListener('click', () => {
+        clickEvent(i);
+      });
+    }
+  };
+
   const initForm = () => {
     let signUp = '';
     signUp = `
@@ -106,77 +169,29 @@ const GameControl = (() => {
     document.getElementById('divHeaderControls').innerHTML = "Players' names";
     document.getElementById('divGameControls').innerHTML = signUp;
     document.getElementById('start_game').addEventListener('click', () => {
-      p1_name = document.getElementById('player1').value;
-      p2_name = document.getElementById('player2').value;
+      const p1Name = document.getElementById('player1').value;
+      const p2Name = document.getElementById('player2').value;
 
       document.getElementById('invalid-p1').className = 'alert alert-danger d-none';
       document.getElementById('invalid-p2').className = 'alert alert-danger d-none';
-      if (p1_name.length > 0 && p2_name.length > 0) {
-        createPlayers(p1_name, p2_name);
-        current_player = p1;
+      if (p1Name.length > 0 && p2Name.length > 0) {
+        createPlayers(p1Name, p2Name);
+        currentPlayer = p1;
         document.getElementById('divBoardCard').className = 'card mr-3';
         addEvents();
         altScoreBoard();
-      }
-      else {
-        if (p1_name.length === 0) {
+      } else {
+        if (p1Name.length === 0) {
           document.getElementById('invalid-p1').className = 'alert alert-danger';
         }
-        if (p2_name.length === 0) {
+        if (p2Name.length === 0) {
           document.getElementById('invalid-p2').className = 'alert alert-danger';
         }
       }
     });
   };
 
-  const altScoreBoard = () => {
-    let scoreBoard = `
-      <div class='mb-2 font-weight-bold'>${p1.getName()} V.S. ${p2.getName()}</div>
-      <div class='mb-2'>${p1.getName()}: ${p1.getScore()} victories.</div>
-      <div class='mb-3'>${p2.getName()}: ${p2.getScore()} victories.</div>
-      <button id='btnResetBoard' class='btn btn-primary'>Reset the board</button>
-    `;
-    document.getElementById('divHeaderControls').innerHTML = 'Game Score';
-    document.getElementById('divGameControls').innerHTML = scoreBoard;
-    document.getElementById('btnResetBoard').addEventListener('click', () => {
-      board.reset();
-      for (let i = 0; i < 9; i++) {
-        document.getElementById(`cell_${i}`).innerHTML = ' ';
-      }
-      enabled = true;
-      document.getElementById('divHeaderGameBoard').innerHTML = "Let's play!!";
-      document.getElementById('divHeaderGameBoard').className = 'card-header';
-    });
-  };
-
-  const addEvents = () => {
-    for (let i = 0; i < 9; i++) {
-      document.getElementById(`cell_${i}`).addEventListener('click', () => {
-        if (board.empty(i) && enabled) {
-          board.move(current_player.getSymbol(), i);
-          document.getElementById(`cell_${i}`).innerHTML = current_player.getSymbol();
-          let wins = board.winner(current_player.getSymbol());
-          if (wins) {
-            current_player.win();
-            altScoreBoard();
-            document.getElementById('divHeaderGameBoard').innerHTML = `${current_player.getName()} wins!`;
-            document.getElementById('divHeaderGameBoard').className = 'font-weight-bold text-white card-header bg-success';
-            enabled = false;
-            first_player === p1 ? first_player = p2 : first_player = p1;
-            current_player = first_player;
-          }
-          else if (board.draw()) {
-            document.getElementById('divHeaderGameBoard').innerHTML = "It's a draw!";
-            document.getElementById('divHeaderGameBoard').className = 'font-weight-bold card-header bg-warning';
-            first_player === p1 ? first_player = p2 : first_player = p1;
-            current_player = first_player;
-          }
-          current_player === p1 ? current_player = p2 : current_player = p1;
-        }
-      });
-    }
-  };
-  return { initForm }
+  return { initForm };
 })();
 
 
