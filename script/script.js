@@ -78,6 +78,7 @@ const GameControl = (() => {
   let p1 = null;
   let p2 = null;
   let current_player = p1;
+  let first_player = p1;
   let enabled = true;
   let createPlayers = (p1_name, p2_name) => {
     p1 = Player(p1_name, '☠️');
@@ -161,10 +162,14 @@ const GameControl = (() => {
             document.getElementById('divHeaderGameBoard').innerHTML = `${current_player.getName()} wins!`;
             document.getElementById('divHeaderGameBoard').className = 'font-weight-bold text-white card-header bg-success';
             enabled = false;
+            first_player === p1 ? first_player = p2 : first_player = p1;
+            current_player = first_player;
           }
           else if (board.draw()) {
             document.getElementById('divHeaderGameBoard').innerHTML = "It's a draw!";
             document.getElementById('divHeaderGameBoard').className = 'font-weight-bold card-header bg-warning';
+            first_player === p1 ? first_player = p2 : first_player = p1;
+            current_player = first_player;
           }
           current_player === p1 ? current_player = p2 : current_player = p1;
         }
