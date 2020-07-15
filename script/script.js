@@ -4,9 +4,24 @@ const Gameboard = (() => {
     ' ', ' ', ' ',
     ' ', ' ', ' '
   ];
-  // const win = [[0, 1, 2], [3, 4, 5], [6, 7, 8], ... ];
-  const move = (symbol, row, col) => {
-    board[row][col] = symbol;
+  const winning_combinations = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+  const move = (symbol, cell) => {
+    board[cell] = symbol;
+  };
+  const empty = (cell) => {
+    if (board[cell] === ' '){
+      return true;
+    }
+    return false;
+  };
+  const winner = (symbol) => {
+    for(let i = 0; i < winning_combinations.length; i++){
+      let c = winning_combinations[i];
+      if(board[c[0]] == symbol && board[c[1]] == symbol && board[c[2]] == symbol){
+        return true;
+      }
+    }
+    return false;
   };
   const print = () => {
     let divGameBoard = `    
@@ -33,7 +48,7 @@ const Gameboard = (() => {
 
     document.getElementById('divGameBoard').innerHTML = divGameBoard;
   };
-  return { move, print }
+  return { move, print, empty, winner }
 })();
 
 const Player = (name, symbol) => {
@@ -48,10 +63,11 @@ const Player = (name, symbol) => {
   return { getName, getSymbol, getScore, win }
 };
 
-const GameControl = ((board) => {
+const GameControl = (() => {
+  let board = Gameboard;
   let p1 = null;
   let p2 = null;
-  let players_turn = p1;
+  let current_player = p1;
   let createPlayers = (p1_name, p2_name) => {
     p1 = Player(p1_name, 'X');
     p2 = Player(p2_name, 'O');
@@ -80,29 +96,41 @@ const GameControl = ((board) => {
       p1_name = document.getElementById('player1').value;
       p2_name = document.getElementById('player2').value;
       createPlayers(p1_name, p2_name);
-      players_turn = p1;
+      current_player = p1;
+      document.getElementById('divBoardCard').className = 'card';
       addEvents();
       altScoreBoard();
     });
   };
 
   const altScoreBoard = () => {
-    // if (document.getElementById('divBoardCard').className.includes('d-none')) {
-    document.getElementById('divBoardCard').className = 'card';
-    //   document.getElementById('divGameControls').className = 'card d-none';
-    // }
-    // else {
-    //   document.getElementById('divBoardCard').className = 'card d-none';
-    //   document.getElementById('divGameControls').className = 'card';
-    // }
-    document.getElementById('divGameControls').innerHTML = `${p1.getName()} V.S. ${p2.getName()}`;
-  }
+    let scoreBoard = `
+    <div>${p1.getName()} V.S. ${p2.getName()}</div>
+    <div>${p1.getName()}: ${p1.getScore()} victories.</div>
+    <div>${p2.getName()}: ${p2.getScore()} victories.</div>
+    `;
+    document.getElementById('divGameControls').innerHTML = scoreBoard;
+  };
 
   const addEvents = () => {
     for (let i = 0; i < 9; i++) {
       document.getElementById(`cell_${i}`).addEventListener('click', () => {
-        document.getElementById(`cell_${i}`).innerHTML = players_turn.getSymbol();
-        players_turn === p1 ? players_turn = p2 : players_turn = p1;
+        
+        if(board.empty(i)){
+          board.move(current_player.getSymbol(), i);
+          document.getElementById(`cell_${i}`).innerHTML = current_player.getSymbol();
+          let wins = board.winner(current_player.getSymbol());
+          if (wins){
+            current_player.win();
+            altScoreBoard();
+            console.log(`p1 score ${p1.getScore()}`);
+            console.log(`p2 score ${p2.getScore()}`);
+            console.log(`current_player score ${current_player.getScore()}`);
+            // document.getElementById('divGameControls').innerHTML = `${current_player.getName()} wins!`;
+          }
+          current_player === p1 ? current_player = p2 : current_player = p1;  
+        }
+        
       });
     }
   };
