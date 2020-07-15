@@ -135,7 +135,7 @@ const GameControl = (() => {
         if (firstPlayer === p1) { firstPlayer = p2; } else { firstPlayer = p1; }
         currentPlayer = firstPlayer;
       }
-      if (firstPlayer === p1) { firstPlayer = p2; } else { firstPlayer = p1; }
+      if (currentPlayer === p1) { currentPlayer = p2; } else { currentPlayer = p1; }
     }
   };
 

@@ -1,43 +1,23 @@
-# Project Name
+# Tic-Tac-Toe Game
 
-> One paragraph statement about the project.
+> Tic-Tac-Toe Game using Javascript with objects factories and modules. For educational porpuses. 
 
-![screenshot](./app_screenshot.png)
-
-Additional description about the project and its features.
+![screenshot](https://user-images.githubusercontent.com/36812672/87597190-f8e00580-c6b6-11ea-812d-9077fa0fb64a.png)
 
 ## Built With
 
-- Major languages,
-- frameworks,
-- technologies used
+- Javascript
+- HTML
+- CSS
+- VS Code
 
-## Live Demo
+## How to Install
 
-[Live Demo Link](https://livedemo.com)
+- Clone it using **git clone** command.
+- Open the index.html file your browser.
 
-
-## Getting Started
-
-**This is an example of how you may give instructions on setting up your project locally.**
-**Modify this file to match your project, remove sections that don't apply. For example: delete the testing section if the currect project doesn't require testing.**
-
-
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-### Setup
-
-### Install
-
-### Usage
-
-### Run tests
-
-### Deployment
-
-
+## Demo
+[Link demo](https://rawcdn.githack.com/sergiomauz/JS-Microverse-Library/0011e1881797cabc97021f33c4dd4d7886527ab7/index.html)
 
 ## Authors
 
@@ -46,11 +26,11 @@ To get a local copy up and running follow these simple example steps.
 - Twitter: [@voscarmv](https://twitter.com/voscarmv)
 - Linkedin: [Oscar Mier](https://www.linkedin.com/in/oscar-mier-072984196/) 
 
-👤 **Author2**
+👤 **Sergio Zambrano**
 
-- Github: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- Linkedin: [linkedin](https://linkedin.com/linkedinhandle)
+- Github: [@sergiomauz](https://github.com/sergiomauz)
+- Twitter: [@sergiomauz](https://twitter.com/sergiomauz)
+- Linkedin: [Sergio Zambrano](https://www.linkedin.com/in/sergiomauz/)
 
 ## 🤝 Contributing
 
