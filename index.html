@@ -15,19 +15,21 @@
 
 <body>
   <nav class="navbar navbar-light bg-light mb-4">
-    <span class="navbar-brand mb-0 h1">Tic-Tac-Toe</span>
+    <span class="navbar-brand mb-0 h1">Tic-Tac-Toe Game. Choose your destiny!</span>
   </nav>
   <main class="container">
-    <div id="divBoardCard" class="card d-none">
-      <div class="card-header">Let's play!</div>
-      <div id="divGameBoard" class="card-body">
-
+    <div class="row">
+      <div class="col-6">
+        <div class="card">
+          <div id='divHeaderControls' class="card-header">Players' names</div>
+          <div id="divGameControls" class="card-body"></div>
+        </div>
       </div>
-    </div>
-    <div id="divGameControls" class="card">
-      <div class="card-header">Players' names</div>
-      <div class="card-body">
-
+      <div class="col-6">
+        <div id="divBoardCard" class="card mr-3 d-none">
+          <div id='divHeaderGameBoard' class="card-header"></div>
+          <div id="divGameBoard" class="card-body"></div>
+        </div>
       </div>
     </div>
   </main>
