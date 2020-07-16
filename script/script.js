@@ -4,13 +4,11 @@ const UserInterfaceControl = (() => {
     let clon = signUp.content.cloneNode(true);
     document.getElementById('divGameControls').appendChild(clon);
   };
-  const printBoard = (board) => {
+  const printBoard = () => {
     let gameBoard = document.getElementById('game_board');
-    for (let i = 0; i < 9; i += 1) {
-      gameBoard.content.querySelector(`#cell_${i}`).innerHTML = board[i];
-    }
     let clon = gameBoard.content.cloneNode(true);
     document.getElementById('divGameBoard').appendChild(clon);
+    document.getElementById('divHeaderGameBoard').innerHTML = "Let's play!";
   };
   const printScoreBoard = (player1, player2) => {
     let score = document.getElementById('score_board');
@@ -20,6 +18,15 @@ const UserInterfaceControl = (() => {
     let clon = score.content.cloneNode(true);
     document.getElementById('divGameControls').innerHTML = '';
     document.getElementById('divGameControls').appendChild(clon);
+    document.getElementById('btnResetBoard').addEventListener('click', () => {
+      Gameboard.reset();
+      for (let i = 0; i < 9; i += 1) {
+        document.getElementById(`cell_${i}`).innerHTML = ' ';
+      }
+      document.getElementById('divHeaderGameBoard').innerHTML = "Let's play!!";
+      document.getElementById('divHeaderGameBoard').className = 'card-header';
+    });
+    document.getElementById('divHeaderControls').innerHTML = 'Game Score';
   }
 
   return { printSignUp, printBoard, printScoreBoard }
@@ -61,34 +68,9 @@ const Gameboard = (() => {
   };
   const draw = () => !board.includes(' ');
 
-  const print = () => {
-    // const divGameBoard = `    
-    //   <table>
-    //     <tbody>
-    //       <tr>
-    //         <td class='border border-dark'><div id='cell_0' class='cell d-flex justify-content-center align-items-center'>${board[0]}</div></td>
-    //         <td class='border border-dark'><div id='cell_1' class='cell d-flex justify-content-center align-items-center'>${board[1]}</div></td>
-    //         <td class='border border-dark'><div id='cell_2' class='cell d-flex justify-content-center align-items-center'>${board[2]}</div></td>
-    //       </tr>
-    //       <tr>
-    //         <td class='border border-dark'><div id='cell_3' class='cell d-flex justify-content-center align-items-center'>${board[3]}</div></td>
-    //         <td class='border border-dark'><div id='cell_4' class='cell d-flex justify-content-center align-items-center'>${board[4]}</div></td>
-    //         <td class='border border-dark'><div id='cell_5' class='cell d-flex justify-content-center align-items-center'>${board[5]}</div></td>
-    //       </tr>
-    //       <tr>
-    //         <td class='border border-dark'><div id='cell_6' class='cell d-flex justify-content-center align-items-center'>${board[6]}</div></td>
-    //         <td class='border border-dark'><div id='cell_7' class='cell d-flex justify-content-center align-items-center'>${board[7]}</div></td>
-    //         <td class='border border-dark'><div id='cell_8' class='cell d-flex justify-content-center align-items-center'>${board[8]}</div></td>
-    //       </tr>          
-    //     </tbody>
-    //   </table>
-    // `;
-
-    UserInterfaceControl.printBoard(board);
-
-    document.getElementById('divHeaderGameBoard').innerHTML = "Let's play!";
-    // document.getElementById('divGameBoard').innerHTML = divGameBoard;
-  };
+  // const print = () => {
+  //   UserInterfaceControl.printBoard(board);
+  // };
   const reset = () => {
     for (let i = 0; i < 9; i += 1) {
       board[i] = ' ';
@@ -127,26 +109,8 @@ const GameControl = (() => {
   };
 
   const altScoreBoard = () => {
-    // const scoreBoard = `
-    //   <div class='mb-2 font-weight-bold'>${p1.getName()} V.S. ${p2.getName()}</div>
-    //   <div class='mb-2'>${p1.getName()}: ${p1.getScore()} victories.</div>
-    //   <div class='mb-3'>${p2.getName()}: ${p2.getScore()} victories.</div>
-    //   <button id='btnResetBoard' class='btn btn-primary'>Reset the board</button>
-    // `;
-
-    document.getElementById('divHeaderControls').innerHTML = 'Game Score';
-    // document.getElementById('divGameControls').innerHTML = scoreBoard;
     UserInterfaceControl.printScoreBoard(p1, p2);
-
-    document.getElementById('btnResetBoard').addEventListener('click', () => {
-      board.reset();
-      for (let i = 0; i < 9; i += 1) {
-        document.getElementById(`cell_${i}`).innerHTML = ' ';
-      }
-      enabled = true;
-      document.getElementById('divHeaderGameBoard').innerHTML = "Let's play!!";
-      document.getElementById('divHeaderGameBoard').className = 'card-header';
-    });
+    enabled = true;
   };
 
   const clickEvent = (index) => {
@@ -181,27 +145,8 @@ const GameControl = (() => {
   };
 
   const initForm = () => {
-    // let signUp = '';
-    // signUp = `
-    //   <div class="form-group">
-    //   <label for="player1">Player 1</label>
-    //   <input type="text" class="form-control" id="player1" placeholder="Player 1" />
-    //     <div id="invalid-p1" class="alert alert-danger d-none" role="alert">
-    //       Player 1 name not valid.
-    //     </div>
-    //   </div>
-    //   <div class="form-group">
-    //   <label for="player2">Player 2</label>
-    //   <input type="text" class="form-control" id="player2" placeholder="Player 2" />
-    //     <div id="invalid-p2" class="alert alert-danger d-none" role="alert">
-    //       Player 2 name not valid.
-    //     </div>
-    //   </div>
-    //   <button id="start_game" type="submit" class="btn btn-primary">Start!</button>
-    // `;
     uicontrol.printSignUp();
     document.getElementById('divHeaderControls').innerHTML = "Players' names";
-    // document.getElementById('divGameControls').innerHTML = signUp;
     document.getElementById('start_game').addEventListener('click', () => {
       const p1Name = document.getElementById('player1').value;
       const p2Name = document.getElementById('player2').value;
@@ -228,8 +173,5 @@ const GameControl = (() => {
   return { initForm };
 })();
 
-
-
-
-Gameboard.print();
+UserInterfaceControl.printBoard();
 GameControl.initForm();
