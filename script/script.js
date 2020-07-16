@@ -202,5 +202,6 @@ const GameControl = (() => {
   return { initForm };
 })();
 
+// Start game
 UserInterfaceControl.printBoard();
 GameControl.initForm();
