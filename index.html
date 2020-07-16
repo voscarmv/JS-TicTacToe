@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+    integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
+  <link rel="stylesheet" href="style/style.css">
+  <title>Choose your destiny! Tic-Tac-Toe</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light mb-4">
+    <span class="navbar-brand mb-0 h1">Tic-Tac-Toe Game. Choose your destiny! 💪💀</span>
+  </nav>
+  <main class="container">
+    <div class="row">
+      <div class="col-6">
+        <div class="card">
+          <div id="divHeaderControls" class="card-header">Players' names</div>
+          <div id="divGameControls" class="card-body"></div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div id="divBoardCard" class="card mr-3 d-none">
+          <div id="divHeaderGameBoard" class="card-header"></div>
+          <div id="divGameBoard" class="card-body"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <template id="signup_template">
+    <div class="form-group">
+      <label for="player1">Player 1</label>
+      <input type="text" class="form-control" id="player1" placeholder="Player 1" />
+      <div id="invalid-p1" class="alert alert-danger d-none" role="alert">
+        Player 1 name not valid.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="player2">Player 2</label>
+      <input type="text" class="form-control" id="player2" placeholder="Player 2" />
+      <div id="invalid-p2" class="alert alert-danger d-none" role="alert">
+        Player 2 name not valid.
+      </div>
+    </div>
+    <button id="start_game" type="submit" class="btn btn-primary">Start!</button>
+  </template>
+
+  <template id="game_board">
+    <table>
+      <tbody>
+        <tr>
+          <td class="border border-dark">
+            <div id="cell_0" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+          <td class="border border-dark">
+            <div id="cell_1" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+          <td class="border border-dark">
+            <div id="cell_2" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="border border-dark">
+            <div id="cell_3" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+          <td class="border border-dark">
+            <div id="cell_4" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+          <td class="border border-dark">
+            <div id="cell_5" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="border border-dark">
+            <div id="cell_6" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+          <td class="border border-dark">
+            <div id="cell_7" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+          <td class="border border-dark">
+            <div id="cell_8" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </template>
+
+  <template id="score_board">
+    <div id="players_match" class='mb-2 font-weight-bold'></div>
+    <div id="player1_score" class='mb-2'></div>
+    <div id="player2_score" class='mb-3'></div>
+    <button id='btnResetBoard' class='btn btn-primary'>Reset the board</button>
+  </template>
+
+
+  <script src="script/script.js"></script>
+</body>
+
+</html>
