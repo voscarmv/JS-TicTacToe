@@ -1,7 +1,7 @@
 const UserInterfaceControl = (() => {
   const printSignUp = (prepareBoard, makePlayers) => {
-    let signUp = document.getElementById('signup_template');
-    let clon = signUp.content.cloneNode(true);
+    const signUp = document.getElementById('signup_template');
+    const clon = signUp.content.cloneNode(true);
     document.getElementById('divGameControls').appendChild(clon);
 
     document.getElementById('divHeaderControls').innerHTML = "Players' names";
@@ -26,21 +26,21 @@ const UserInterfaceControl = (() => {
     });
   };
   const printBoard = () => {
-    let gameBoard = document.getElementById('game_board');
-    let clon = gameBoard.content.cloneNode(true);
+    const gameBoard = document.getElementById('game_board');
+    const clon = gameBoard.content.cloneNode(true);
     document.getElementById('divGameBoard').appendChild(clon);
     document.getElementById('divHeaderGameBoard').innerHTML = "Let's play!";
   };
-  const printScoreBoard = (player1, player2, enable) => {
-    let score = document.getElementById('score_board');
+  const printScoreBoard = (player1, player2, enable, boarReset) => {
+    const score = document.getElementById('score_board');
     score.content.querySelector('#players_match').innerHTML = `${player1.getName()} V.S. ${player2.getName()}`;
     score.content.querySelector('#player1_score').innerHTML = `${player1.getName()}: ${player1.getScore()} victories.`;
     score.content.querySelector('#player2_score').innerHTML = `${player2.getName()}: ${player2.getScore()} victories.`;
-    let clon = score.content.cloneNode(true);
+    const clon = score.content.cloneNode(true);
     document.getElementById('divGameControls').innerHTML = '';
     document.getElementById('divGameControls').appendChild(clon);
     document.getElementById('btnResetBoard').addEventListener('click', () => {
-      Gameboard.reset();
+      boarReset();
       for (let i = 0; i < 9; i += 1) {
         document.getElementById(`cell_${i}`).innerHTML = ' ';
       }
@@ -49,7 +49,7 @@ const UserInterfaceControl = (() => {
       enable();
     });
     document.getElementById('divHeaderControls').innerHTML = 'Game Score';
-  }
+  };
 
   const printWinMsg = (player) => {
     document.getElementById('divHeaderGameBoard').innerHTML = `${player.getName()} wins!`;
@@ -80,8 +80,8 @@ const UserInterfaceControl = (() => {
     printWinMsg,
     gameDraw,
     setSymbolOnBoard,
-    addBoardEvents
-  }
+    addBoardEvents,
+  };
 })();
 
 const Gameboard = (() => {
@@ -120,16 +120,13 @@ const Gameboard = (() => {
   };
   const draw = () => !board.includes(' ');
 
-  // const print = () => {
-  //   UserInterfaceControl.printBoard(board);
-  // };
   const reset = () => {
     for (let i = 0; i < 9; i += 1) {
       board[i] = ' ';
     }
   };
   return {
-    move, print, empty, winner, reset, draw,
+    move, empty, winner, reset, draw,
   };
 })();
 
@@ -161,10 +158,10 @@ const GameControl = (() => {
 
   const enableBoard = () => {
     enabled = true;
-  }
+  };
 
   const altScoreBoard = () => {
-    UserInterfaceControl.printScoreBoard(p1, p2, enableBoard);
+    UserInterfaceControl.printScoreBoard(p1, p2, enableBoard, board.reset);
   };
 
   const clickEvent = (index) => {
@@ -181,18 +178,18 @@ const GameControl = (() => {
         currentPlayer = firstPlayer;
       } else if (board.draw()) {
         UserInterfaceControl.gameDraw();
-        firstPlayer === p1 ? firstPlayer = p2 : firstPlayer = p1;
+        if (firstPlayer === p1) { firstPlayer = p2; } else { firstPlayer = p1; }
         currentPlayer = firstPlayer;
       }
-      currentPlayer === p1 ? currentPlayer = p2 : currentPlayer = p1;
+      if (currentPlayer === p1) { currentPlayer = p2; } else { currentPlayer = p1; }
     }
   };
 
   const addEvents = () => {
-    UserInterfaceControl.addBoardEvents(clickEvent)
+    UserInterfaceControl.addBoardEvents(clickEvent);
   };
 
-  const prepareBoard= () =>{
+  const prepareBoard = () => {
     currentPlayer = p1;
     addEvents();
     altScoreBoard();
