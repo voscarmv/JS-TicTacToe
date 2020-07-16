@@ -1,18 +1,28 @@
 const UserInterfaceControl = (() => {
-  const printSignUp = () =>{
+  const printSignUp = () => {
     let signUp = document.getElementById('signup_template');
     let clon = signUp.content.cloneNode(true);
     document.getElementById('divGameControls').appendChild(clon);
   };
-  const printBoard = (board) =>{
+  const printBoard = (board) => {
     let gameBoard = document.getElementById('game_board');
-    for(let i = 0; i < 9; i += 1){
-      gameBoard.querySelectorAll(`#cell_${i}`).innerHTML = board[i];
+    for (let i = 0; i < 9; i += 1) {
+      gameBoard.content.querySelector(`#cell_${i}`).innerHTML = board[i];
     }
     let clon = gameBoard.content.cloneNode(true);
     document.getElementById('divGameBoard').appendChild(clon);
   };
-  return { printSignUp, printBoard }
+  const printScoreBoard = (player1, player2) => {
+    let score = document.getElementById('score_board');
+    score.content.querySelector('#players_match').innerHTML = `${player1.getName()} V.S. ${player2.getName()}`;
+    score.content.querySelector('#player1_score').innerHTML = `${player1.getName()}: ${player1.getScore()} victories.`;
+    score.content.querySelector('#player2_score').innerHTML = `${player2.getName()}: ${player2.getScore()} victories.`;
+    let clon = score.content.cloneNode(true);
+    document.getElementById('divGameControls').innerHTML = '';
+    document.getElementById('divGameControls').appendChild(clon);
+  }
+
+  return { printSignUp, printBoard, printScoreBoard }
 })();
 
 const Gameboard = (() => {
@@ -117,14 +127,17 @@ const GameControl = (() => {
   };
 
   const altScoreBoard = () => {
-    const scoreBoard = `
-      <div class='mb-2 font-weight-bold'>${p1.getName()} V.S. ${p2.getName()}</div>
-      <div class='mb-2'>${p1.getName()}: ${p1.getScore()} victories.</div>
-      <div class='mb-3'>${p2.getName()}: ${p2.getScore()} victories.</div>
-      <button id='btnResetBoard' class='btn btn-primary'>Reset the board</button>
-    `;
+    // const scoreBoard = `
+    //   <div class='mb-2 font-weight-bold'>${p1.getName()} V.S. ${p2.getName()}</div>
+    //   <div class='mb-2'>${p1.getName()}: ${p1.getScore()} victories.</div>
+    //   <div class='mb-3'>${p2.getName()}: ${p2.getScore()} victories.</div>
+    //   <button id='btnResetBoard' class='btn btn-primary'>Reset the board</button>
+    // `;
+
     document.getElementById('divHeaderControls').innerHTML = 'Game Score';
-    document.getElementById('divGameControls').innerHTML = scoreBoard;
+    // document.getElementById('divGameControls').innerHTML = scoreBoard;
+    UserInterfaceControl.printScoreBoard(p1, p2);
+
     document.getElementById('btnResetBoard').addEventListener('click', () => {
       board.reset();
       for (let i = 0; i < 9; i += 1) {
@@ -147,7 +160,7 @@ const GameControl = (() => {
         document.getElementById('divHeaderGameBoard').innerHTML = `${currentPlayer.getName()} wins!`;
         document.getElementById('divHeaderGameBoard').className = 'font-weight-bold text-white card-header bg-success';
         enabled = false;
-        if(firstPlayer === p1){ firstPlayer = p2; } else { firstPlayer = p1; }
+        if (firstPlayer === p1) { firstPlayer = p2; } else { firstPlayer = p1; }
         currentPlayer = firstPlayer;
       } else if (board.draw()) {
         document.getElementById('divHeaderGameBoard').innerHTML = "It's a draw!";

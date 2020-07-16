@@ -34,45 +34,71 @@
     </div>
   </main>
 
-<template id="signup_template">
-  <div class="form-group">
-    <label for="player1">Player 1</label>
-    <input type="text" class="form-control" id="player1" placeholder="Player 1" />
+  <template id="signup_template">
+    <div class="form-group">
+      <label for="player1">Player 1</label>
+      <input type="text" class="form-control" id="player1" placeholder="Player 1" />
       <div id="invalid-p1" class="alert alert-danger d-none" role="alert">
         Player 1 name not valid.
       </div>
     </div>
     <div class="form-group">
-    <label for="player2">Player 2</label>
-    <input type="text" class="form-control" id="player2" placeholder="Player 2" />
+      <label for="player2">Player 2</label>
+      <input type="text" class="form-control" id="player2" placeholder="Player 2" />
       <div id="invalid-p2" class="alert alert-danger d-none" role="alert">
         Player 2 name not valid.
       </div>
     </div>
     <button id="start_game" type="submit" class="btn btn-primary">Start!</button>
-</template>
+  </template>
 
-<template id="game_board">
-  <table>
-    <tbody>
-      <tr>
-        <td class="border border-dark"><div id="cell_0" class="cell d-flex justify-content-center align-items-center"></div></td>
-        <td class="border border-dark"><div id="cell_1" class="cell d-flex justify-content-center align-items-center"></div></td>
-        <td class="border border-dark"><div id="cell_2" class="cell d-flex justify-content-center align-items-center"></div></td>
-      </tr>
-      <tr>
-        <td class="border border-dark"><div id="cell_3" class="cell d-flex justify-content-center align-items-center"></div></td>
-        <td class="border border-dark"><div id="cell_4" class="cell d-flex justify-content-center align-items-center"></div></td>
-        <td class="border border-dark"><div id="cell_5" class="cell d-flex justify-content-center align-items-center"></div></td>
-      </tr>
-      <tr>
-        <td class="border border-dark"><div id="cell_6" class="cell d-flex justify-content-center align-items-center"></div></td>
-        <td class="border border-dark"><div id="cell_7" class="cell d-flex justify-content-center align-items-center"></div></td>
-        <td class="border border-dark"><div id="cell_8" class="cell d-flex justify-content-center align-items-center"></div></td>
-      </tr>          
-    </tbody>
-  </table>
-</template>
+  <template id="game_board">
+    <table>
+      <tbody>
+        <tr>
+          <td class="border border-dark">
+            <div id="cell_0" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+          <td class="border border-dark">
+            <div id="cell_1" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+          <td class="border border-dark">
+            <div id="cell_2" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="border border-dark">
+            <div id="cell_3" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+          <td class="border border-dark">
+            <div id="cell_4" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+          <td class="border border-dark">
+            <div id="cell_5" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="border border-dark">
+            <div id="cell_6" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+          <td class="border border-dark">
+            <div id="cell_7" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+          <td class="border border-dark">
+            <div id="cell_8" class="cell d-flex justify-content-center align-items-center"></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </template>
+
+  <template id="score_board">
+    <div id="players_match" class='mb-2 font-weight-bold'></div>
+    <div id="player1_score" class='mb-2'></div>
+    <div id="player2_score" class='mb-3'></div>
+    <button id='btnResetBoard' class='btn btn-primary'>Reset the board</button>
+  </template>
+
 
   <script src="script/script.js"></script>
 </body>
