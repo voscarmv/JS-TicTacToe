@@ -10,7 +10,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'Tic-Tac-Toe',
-      template: 'src/index.html'
+      template: 'src/index.html',
     }),
   ],
   output: {
