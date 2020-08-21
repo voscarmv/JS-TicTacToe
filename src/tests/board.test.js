@@ -5,19 +5,19 @@ beforeEach(() => {
 });
 
 test('Player X move.', () => {
-  expect(gameBoard.move('X', 2)).toEqual([' ', ' ', 'X', ' ', ' ', ' ', ' ', ' ', ' '])
+  expect(gameBoard.move('X', 2)).toEqual([' ', ' ', 'X', ' ', ' ', ' ', ' ', ' ', ' ']);
 });
 
 test('Player X wrong move.', () => {
-  expect(gameBoard.move('X', 3)).not.toEqual([' ', ' ', 'X', ' ', ' ', ' ', ' ', ' ', ' '])
+  expect(gameBoard.move('X', 3)).not.toEqual([' ', ' ', 'X', ' ', ' ', ' ', ' ', ' ', ' ']);
 });
 
-test('Find empty space',() => {
+test('Find empty space', () => {
   gameBoard.move('X', 3);
   expect(gameBoard.empty(2)).toBe(true);
 });
 
-test('Find non-empty space',() => {
+test('Find non-empty space', () => {
   gameBoard.move('X', 3);
   expect(gameBoard.empty(3)).toBe(false);
 });
