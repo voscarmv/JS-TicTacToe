@@ -1,0 +1,28 @@
+{
+  "name": "js-tictactoe",
+  "version": "1.0.0",
+  "description": "Tic-Tac-Toe using webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voscarmv/JS-TicTacToe.git"
+  },
+  "keywords": [
+    "tic-tac-toe",
+    "js",
+    "es6"
+  ],
+  "author": "Sergio Zambrano, Oscar Mier",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/voscarmv/JS-TicTacToe/issues"
+  },
+  "homepage": "https://github.com/voscarmv/JS-TicTacToe#readme",
+  "devDependencies": {
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}
