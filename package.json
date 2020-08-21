@@ -9,7 +9,7 @@
     "pro": "webpack -p",
     "watch": "webpack --w --mode development",
     "server": "webpack-dev-server --open",
-    "test": "npm run test"
+    "test": "jest --verbose false"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,7 @@
     "eslint-plugin-import": "^2.20.2",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
+    "jest": "^26.4.1",
     "json-loader": "^0.5.7",
     "style-loader": "^1.2.1",
     "stylelint": "^13.3.3",
