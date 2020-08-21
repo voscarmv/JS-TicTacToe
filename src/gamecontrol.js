@@ -1,7 +1,9 @@
 import UserInterfaceControl from './uicontrol';
+import gameBoard from './board';
+import Player from './player';
 
 const GameControl = (() => {
-  const board = Gameboard;
+  const board = gameBoard;
   let p1 = null;
   let p2 = null;
   let currentPlayer = p1;
