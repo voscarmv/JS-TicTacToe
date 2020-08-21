@@ -43,7 +43,7 @@ const gameBoard = (() => {
   };
 
   return {
-    move, empty, winner, reset, draw
+    move, empty, winner, reset, draw,
   };
 })();
 
