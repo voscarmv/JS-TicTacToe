@@ -17,7 +17,7 @@
 - Open the index.html file your browser.
 
 ## Demo
-[Link demo](https://rawcdn.githack.com/voscarmv/JS-TicTacToe/42edcf623f3409b96dce7ec26ec6f156cc5763d0/index.html)
+[Link demo](https://rawcdn.githack.com/voscarmv/JS-TicTacToe/62bfbe3bc6bd5fc8b8dbe79cee94009f2153b1be/dist/index.html)
 
 ## Authors
 
